@@ -1,0 +1,7 @@
+sha,test_time,test_status,reduced_javamop_time,reduced_javamop_status,reduced_emop_time,reduced_emop_status,reduced_imop_time,reduced_imop_status,redundant_test_time,redundant_test_status,reduced_partial_javamop_time,reduced_partial_javamop_status,redundant_partial_test_time,redundant_partial_test_status,all_javamop_time,all_javamop_status,all_emop_time,all_emop_status,all_imop_time,all_imop_status,all_rts_javamop_time,all_rts_javamop_status
+750cff0f9d36e5b3de8ff12bb1e626a9cd29744c,1719,0,4620,0,8342,0,4756,0,1560,0,0,0,0,0,4933,0,8431,0,5009,0,5628,0
+17e3a3cb084d05bffad4ba137758f5a7c5e1a344,1732,0,4773,0,5391,0,4751,0,1520,0,0,0,0,0,4815,0,5607,0,4917,0,5593,0
+624a4e5130ce4882794d24096c4379080038161a,1755,0,4635,0,4243,0,4776,0,1539,0,0,0,0,0,4756,0,1976,0,5038,0,5718,0
+10dcc676c45be2511056f3017a866566d0493f34,1724,0,4736,0,4455,0,4727,0,1554,0,0,0,0,0,4827,0,4844,0,4963,0,5647,0
+2a9673cf1473ed5f0abf901df6ab79687bb62029,1730,0,4684,0,3172,0,4809,0,1520,0,0,0,0,0,4863,0,2025,0,4874,0,5610,0
+c7db8951af7ee2a62c2704152147291b50f3dd81,1885,0,4819,0,4215,0,5103,0,1774,0,0,0,0,0,5064,0,4294,0,5079,0,5921,0

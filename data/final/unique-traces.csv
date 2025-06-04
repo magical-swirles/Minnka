@@ -1,0 +1,51 @@
+project,SEQ-in_both,SEQ-in_all,SEQ-in_reduced,PAR-in_both,PAR-in_all,PAR-in_reduced
+AAA-AA-basic-tools,38,1,2,39,0,0
+ChannelFinder-javaCFClient,121,0,0,121,0,0
+GreenButtonAlliance-OpenESPI-ThirdParty-java,266,1,14,266,1,17
+Grundlefleck-ASM-NonClassloadingExtensions,40897,1,0,41819,0,0
+ITArray-automotion-java,2918,448,4,ERROR: unable to get traces,,
+JetBrains-jetCheck,1125,499,1,1124,498,2
+LiveRamp-HyperMinHash-java,72,0,0,72,0,0
+OWASP-url-classifier,9127,1798,1804,8572,2353,2380
+RUB-NDS-BurpSSOExtension,46,2,2,46,2,2
+RokLenarcic-AhoCorasick,15,64,0,1516,991,985
+StarlangSoftware-TurkishMorphologicalAnalysis,22852,0,0,22858,0,0
+StarlangSoftware-TurkishPropBank,93,0,0,93,0,0
+StarlangSoftware-TurkishSentiNet,31,0,0,31,0,0
+albfernandez-javadbf,271,0,0,271,0,0
+alexheretic-dynamics,437,1582,1565,440,1579,1580
+bvolpato-inutils4j,82,0,0,82,0,0
+cheese10yun-spring-jpa-best-practices,3489,153,51,3777,38,48
+cowtowncoder-java-uuid-generator,128,0,0,120,1,0
+dakusui-jcunit,6396,894,1,ERROR: unable to get traces,,
+danieldk-dictomaton,13115,78,1,13836,1,0
+davidmoten-hilbert-curve,258,0,0,258,0,0
+davidmoten-sparse-hilbert-index,209,6,3,ERROR: unable to get traces,,
+dernasherbrezon-jradio,7271,7,5,7279,7,6
+eightbitjim-cassette-nibbler,14092,6803,9465,13961,6934,8344
+f-lab-edu-real-time-delivery-market,1103,0,0,1103,0,0
+f4b6a3-uuid-creator,202,0,0,202,0,0
+flipkart-incubator-databuilderframework,1441,8,8,1442,7,7
+fraunhoferfokus-Fuzzino,6977,9,2,6997,2,2
+houbb-segment,320,0,0,320,0,0
+houbb-sensitive-word,308,0,0,308,0,0
+huaban-jieba-analysis,1039,53,46,1092,0,0
+indeedeng-vowpal-wabbit-java,114,53,1,274,0,0
+jahlborn-jackcess,25397,24735,25452,25444,24688,25525
+lhncbc-metamaplite,1575,39,0,ERROR: unable to get traces,,
+mimno-Mallet,1326,27,4,ERROR: unable to get traces,,
+mocnik-science-geogrid,63,0,0,63,0,0
+mojohaus-aspectj-maven-plugin,2338,29217,17547,3005,28542,28525
+mojohaus-license-maven-plugin,545,1,1,541,5,5
+nonblocking-nonsnapshot-maven-plugin,364,1,8,364,1,8
+octavian-h-time-series-math,541878,521,5,542408,0,0
+palindromicity-simple-syslog,2458,0,0,2458,0,0
+pebbleblog-pebble,585,3,5,586,3,5
+picturesafe-picturesafe-search,779,21,26,1033,17,20
+romix-java-concurrent-hash-trie-map,84,2163,2167,86,2161,2184
+rythmengine-rythmengine,3550,1699,798,ERROR: unable to get traces,,
+sangupta-bloomfilter,28,0,0,28,0,0
+sbesada-java.math.expression.parser,135,0,0,135,0,0
+stefano81-dcpabe,5579,747,682,4804,1522,1462
+wiqer-ef-redis,77,0,0,77,0,0
+wz2cool-mybatis-dynamic-query,937,0,0,936,1,1
