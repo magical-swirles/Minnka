@@ -32,5 +32,6 @@
 
     <modules>
         <module>junit-extension</module>
+        <module>javamop-extension</module>
   </modules>
 </project>

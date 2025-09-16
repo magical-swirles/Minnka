@@ -16,6 +16,10 @@ public class StateTransitionEquivalence extends Equivalence {
         for (Map.Entry<String, Set<String>> entry : matrix.entrySet()) {
             Set<String> newTraces = new HashSet<>();
             for (String trace : entry.getValue()) {
+                if (trace.startsWith("r")) { // raw trace
+                    newTraces.add(trace);
+                    continue;
+                }
                 // We must reset the FSM before we can use it!
                 FSM.state = 0;
                 FSM.violation = false;
@@ -27,7 +31,6 @@ public class StateTransitionEquivalence extends Equivalence {
                 List<String> expandedEvents = new ArrayList<>();
                 Utils.expandTraces(trace, originalEvents, expandedEvents);
 
-//                System.out.println(expandedEvents);
                 for (int i = 0; i < expandedEvents.size(); i++) {
                     int previousState = i == 0 ? -1 : FSM.state;
                     int nextState = FSM.transition(expandedEvents.get(i));

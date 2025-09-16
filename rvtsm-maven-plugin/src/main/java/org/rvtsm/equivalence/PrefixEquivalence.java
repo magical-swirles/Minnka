@@ -30,8 +30,13 @@ public class PrefixEquivalence extends Equivalence {
 
         for (Map.Entry<String, Set<String>> entry : matrix.entrySet()) {
             Set<String> newTraces = new HashSet<>();
+            Set<String> rawTraces = new HashSet<>();
 
             for (String trace : entry.getValue()) {
+                if (trace.startsWith("r")) { // raw trace
+                    rawTraces.add(trace);
+                    continue;
+                }
                 // Expand the events, e.g., it turns e1~2x3 into [e1~2, e1~2, e1~2]
                 List<String> originalEvents = new ArrayList<>();
                 List<String> expandedEvents = new ArrayList<>();
@@ -76,6 +81,7 @@ public class PrefixEquivalence extends Equivalence {
 //                    System.out.println(newTrace + " is a prefix of another trace, so we don't add it to TR.");
                 }
             }
+            newTraces.addAll(rawTraces);
             newMatrix.put(entry.getKey(), newTraces);
         }
 

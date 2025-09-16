@@ -31,23 +31,29 @@ public class Equivalence {
         String equivalence = args[1];
         String outputFile = args[2];
         Map<String, Set<String>> matrix = Utils.loadMatrix(matrixFile);
+        System.out.println("Loaded " + matrix.size() + " test requirements from " + matrixFile + ", using " + equivalence);
         for (String eq : equivalence.split("-")) {
             Equivalence instance;
             switch (eq) {
                 // TODO: Add other notions too (Don't forget about break)
                 case "state":
+                    System.out.println("Running state transition equivalence...");
                     instance = new StateTransitionEquivalence();
                     break;
                 case "prefix":
+                    System.out.println("Running prefix equivalence...");
                     instance = new PrefixEquivalence();
                     break;
                 case "detour":
+                    System.out.println("Running detour equivalence...");
                     instance = new DetourEquivalence();
                     break;
                 case "online_detour":
+                    System.out.println("Running online detour equivalence...");
                     instance = new OnlineDetourEquivalence();
                     break;
                 case "violation":
+                    System.out.println("Running violation equivalence...");
                     instance = new ViolationEquivalence();
                     break;
                 default:

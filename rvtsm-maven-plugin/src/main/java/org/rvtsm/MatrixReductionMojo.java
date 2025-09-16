@@ -75,6 +75,9 @@ public class MatrixReductionMojo extends GenerateMatrixMojo {
     @Parameter(property = "implementation", defaultValue = "java")
     protected String implementation;
 
+    @Parameter(property = "disablePUT", defaultValue = "false")
+    protected boolean disablePUT;
+
     private void pythonImpl() throws MojoExecutionException {
         // Get the resource as a stream
         InputStream scriptStream = getClass().getClassLoader().getResourceAsStream("reduce.py");
@@ -184,7 +187,8 @@ public class MatrixReductionMojo extends GenerateMatrixMojo {
                 Node node = testCases.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
-                    String name = element.getAttribute("name").split("\\[")[0];
+                    String name = disablePUT ? element.getAttribute("name").split("\\[")[0] : element
+                            .getAttribute("name");
                     String classname = element.getAttribute("classname");
                     Double time = Double.parseDouble(element.getAttribute("time"));
                     if (!tiebreakerMap.containsKey(classname + "#" + name)) {
@@ -299,6 +303,11 @@ public class MatrixReductionMojo extends GenerateMatrixMojo {
         }
     }
 
+    private void noneImpl() throws MojoExecutionException {
+        Set<String> testMethods = processTestMethodListFile(testMethodList);
+        getTiebreakerMap(testMethods);
+    }
+
     private void writeToRedundantAndNoTrace() {
         Set<String> allTests = Utils.getTestSetFromFile(testMethodList);
         Set<String> reducedTests = Utils.getTestSetFromFile(reducedSet);
@@ -324,11 +333,14 @@ public class MatrixReductionMojo extends GenerateMatrixMojo {
 
         if (implementation.equals("python")) {
             pythonImpl();
+            writeToRedundantAndNoTrace();
         } else if (implementation.equals("java")) {
             javaImpl();
+            writeToRedundantAndNoTrace();
+        } else if (implementation.equals("none")) {
+            noneImpl();
         } else {
             throw new MojoExecutionException("Invalid implementation: " + implementation);
         }
-        writeToRedundantAndNoTrace();
     }
 }

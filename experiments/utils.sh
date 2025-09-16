@@ -20,11 +20,11 @@ function delete_violations() {
   done
 }
 
-function move_jfr() {
+function move_surefire() {
   local directory=$1
   local filename=$2
-  for jfr in $(find -name "profile.jfr"); do
-    local name=$(echo "${jfr}" | rev | cut -d '/' -f 2 | rev)
+  for jfr in $(find -name "surefire-reports"); do
+    local name=$(echo "${jfr}" | rev | cut -d '/' -f 3 | rev)
     if [[ ${name} != "." ]]; then
       # Is MMMP, add module name to file name
       mv ${jfr} ${directory}/${filename}_${name}
@@ -45,6 +45,13 @@ function install_agent() {
   if [[ -f ${mop_dir}/agents.tar.gz ]]; then
     tar -xvzf ${mop_dir}/agents.tar.gz
     rm -rf ${mop_dir}/agents.tar.gz
+  fi
+  
+  if [[ -f ${mop_dir}/${agent_name}.jar ]]; then
+    mvn install:install-file -Dmaven.repo.local="${repo_dir}" -Dfile=${mop_dir}/${agent_name}.jar -DgroupId="javamop-agent" -DartifactId="javamop-agent" -Dversion="1.0" -Dpackaging="jar" &> /dev/null
+    
+    popd &> /dev/null
+    return 0
   fi
   
   if [[ ! -f ${mop_dir}/agents/${agent_name}.jar ]]; then

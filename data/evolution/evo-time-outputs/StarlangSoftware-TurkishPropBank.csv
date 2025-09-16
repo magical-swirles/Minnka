@@ -1,5 +1,0 @@
-sha,test_time,test_status,reduced_javamop_time,reduced_javamop_status,reduced_emop_time,reduced_emop_status,reduced_imop_time,reduced_imop_status,redundant_test_time,redundant_test_status,reduced_partial_javamop_time,reduced_partial_javamop_status,redundant_partial_test_time,redundant_partial_test_status,all_javamop_time,all_javamop_status,all_emop_time,all_emop_status,all_imop_time,all_imop_status,all_rts_javamop_time,all_rts_javamop_status
-b7bc44b88993ecb15828d68e2b9dd09fcf228521,8915,0,10756,0,17461,0,11456,0,4675,0,0,0,0,0,13873,0,18689,0,14369,0,18000,0
-05ba4bb67adf6df47b34c92292d679b5f36211ef,8748,0,9453,0,11964,0,10348,0,4836,0,0,0,0,0,15250,0,15851,0,14057,0,16456,0
-a9187dbbaf74f04c422867fc576aed005caf884f,9244,0,10169,0,15537,0,10337,0,4678,0,0,0,0,0,15588,0,18017,0,14220,0,17745,0
-b345528f676bb73b1da93284c561c5022b14d00d,1972,0,33885,0,37691,0,36210,0,1570,0,0,0,0,0,50969,0,59018,0,48183,0,57913,0

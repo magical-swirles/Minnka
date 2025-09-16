@@ -1,7 +1,0 @@
-sha,test_time,test_status,reduced_javamop_time,reduced_javamop_status,reduced_emop_time,reduced_emop_status,reduced_imop_time,reduced_imop_status,redundant_test_time,redundant_test_status,reduced_partial_javamop_time,reduced_partial_javamop_status,redundant_partial_test_time,redundant_partial_test_status,all_javamop_time,all_javamop_status,all_emop_time,all_emop_status,all_imop_time,all_imop_status,all_rts_javamop_time,all_rts_javamop_status
-62f689380b9771927555a6f5430c0408162be441,641265,0,623699,0,633543,0,625472,0,3347,0,0,0,0,0,688713,0,683454,0,656103,0,650121,0
-4141305cd53b7d89512e72b7add05ab3b842a8d5,603079,0,612918,0,612410,0,611111,0,3295,0,0,0,0,0,615834,0,618200,0,613918,0,616572,0
-0aefab6ac40b3b4280fe36815ba0163c9c728986,598432,0,632847,0,633968,0,635033,0,3292,0,0,0,0,0,668044,0,621791,0,632502,0,635211,0
-c25ab2cb440d18fc59adfcd2c34d155fdaec7a42,13160,0,24865,0,10610,0,24793,0,2953,0,0,0,0,0,29148,0,14412,0,28134,0,29674,0
-1736d8aaa617a5f5d71a79a988cdac8fbb425922,11982,0,24758,0,10730,0,24857,0,2888,0,0,0,0,0,29105,0,3522,0,29300,0,29991,0
-01b7cc396bd3890e61cbdd89544c03a327b732c1,11918,0,24761,0,9590,0,24701,0,3364,0,0,0,0,0,29031,0,1942,0,29133,0,29709,0

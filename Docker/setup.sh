@@ -1,9 +1,9 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd $( dirname $0 ) && pwd )
-TSM_DIR="${SCRIPT_DIR}/minnka"
+TSM_DIR="${SCRIPT_DIR}/tsm"
 PROJECT_DIR="${TSM_DIR}/scripts/projects"
-MOP_DIR="${SCRIPT_DIR}/minnka/mop"
+MOP_DIR="${SCRIPT_DIR}/tsm/mop"
 MODE=$1
 
 function clone_repository() {
@@ -24,10 +24,22 @@ function clone_repository() {
 }
 
 function install_javamop() {
-  # Source: https://github.com/SoftEngResearch/tracemop
+  # Source: https://github.com/SoftEngResearch/tracemop by Guan and Legunsen
   echo "Installing JavaMOP/TraceMOP"
   pushd ${PROJECT_DIR}
   git clone https://github.com/SoftEngResearch/tracemop
+  popd
+}
+
+function install_listener() {
+  echo "Installing junit-test-listener"
+  pushd ${TSM_DIR}/junit-listener/junit-test-listener
+  mvn clean install
+  popd
+  
+  echo "Installing junit-measure-time"
+  pushd ${TSM_DIR}/junit-listener/junit-measure-time
+  mvn clean install
   popd
 }
 
@@ -39,34 +51,14 @@ function build_agents() {
   
   pushd ${TSM_DIR}/scripts
   echo -e "db=memory\ndumpDB=false" > .trace-db.config
-
-  pushd ${PROJECT_DIR}/tracemop/scripts
-  if [[ ! -f "${MOP_DIR}/agents/track-agent.jar" ]]; then
-    mv props-track tmp.props && cp -r ${MOP_DIR}/renamed_props-non-raw props-track
-    bash install.sh true false # This will generate a track-no-stats-agent.jar file
-    cp track-no-stats-agent.jar ${MOP_DIR}/agents/track-agent.jar
-    rm -rf props-track && mv tmp.props props-track
-  fi
-  if [[ ! -f "${MOP_DIR}/agents/no-track-agent.jar" ]]; then
-    mv props tmp.props && cp -r ${MOP_DIR}/props-non-raw props
-    bash install.sh false false # This will generate a no-track-no-stats-agent.jar
-    cp no-track-no-stats-agent.jar ${MOP_DIR}/agents/no-track-agent.jar
-    rm -rf props && mv tmp.props props
-  fi
-  if [[ ! -f "${MOP_DIR}/agents/stats-agent.jar" ]]; then
-    mv props tmp.props && cp -r ${MOP_DIR}/props-non-raw props
-    bash install.sh false true # This will generate a no-track-stats-agent.jar
-    cp no-track-stats-agent.jar ${MOP_DIR}/agents/stats-agent.jar
-    rm -rf props && mv tmp.props props
-  fi
-  popd
 }
 
 function build_extensions() {
   echo "Installing maven extensions"
-  if [[ ! -f ${TSM_DIR}/extensions/junit-extension-1.0.jar ]]; then
-    pushd ${SCRIPT_DIR}/minnka/extensions
+  if [[ ! -f ${TSM_DIR}/extensions/javamop-extension-1.0.jar || ! -f ${TSM_DIR}/extensions/junit-extension-1.0.jar ]]; then
+    pushd ${SCRIPT_DIR}/tsm/extensions
     mvn package
+    mv javamop-extension/target/javamop-extension-*.jar ${TSM_DIR}/extensions
     mv junit-extension/target/junit-extension-*.jar ${TSM_DIR}/extensions
     popd
   fi
@@ -76,6 +68,7 @@ function setup() {
   clone_repository
   install_javamop
   build_agents
+  install_listener
   build_extensions
 }
 

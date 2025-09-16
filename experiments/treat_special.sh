@@ -280,6 +280,7 @@ fi
 if [[ ${project_name} == Mercateo-spring-security-jwt ]]; then
   echo "Patching Mercateo-spring-security-jwt"
   find -name JWTSecurityConfigurationTest.java | xargs rm -f
+  sed -i '/public void verifiesExpiredTokenWithConfiguredLeeway/i\    @org.junit.Ignore' ./src/test/java/com/mercateo/spring/security/jwt/token/verifier/JWTVerifierTest.java
 fi
 
 if [[ ${project_name} == yuch7-cwlexec ]]; then
@@ -332,6 +333,9 @@ fi
 if [[ ${project_name} == bingoohuang-asmvalidator ]]; then
   echo "Patching bingoohuang-asmvalidator"
   find -name CharacterControllerTest.java | xargs rm -f
+  find -name DemoController2Test.java | xargs rm -f
+  sed -i '/public void testCalendar/i\    @org.junit.Ignore' ./src/test/java/com/github/bingoohuang/asmvalidator/validator/tests/AsmFutureTest.java
+  sed -i '/public void testCalendarBad/i\    @org.junit.Ignore' ./src/test/java/com/github/bingoohuang/asmvalidator/validator/tests/AsmPastTest.java
 fi
 
 if [[ ${project_name} == Scout24-yum-repo-server ]]; then
@@ -613,6 +617,7 @@ fi
 if [[ ${project_name} == confluentinc-kafka-connect-jdbc ]]; then
   echo "Patching confluentinc-kafka-connect-jdbc"
   sed -i '/public void testTimestampWithTimestampInitialCurrent/i\    @org.junit.Ignore' ./src/test/java/io/confluent/connect/jdbc/source/JdbcSourceTaskUpdateTest.java
+  sed -i '/public void testTimestampWithDelay/i\    @org.junit.Ignore' ./src/test/java/io/confluent/connect/jdbc/source/JdbcSourceTaskUpdateTest.java
 fi
 
 if [[ ${project_name} == Unleash-unleash-client-java ]]; then
@@ -654,4 +659,57 @@ fi
 if [[ ${project_name} == opentracing-contrib-java-grpc ]]; then
   echo "Patching opentracing-contrib-java-grpc"
   sed -i '/public void testTracedClientWithTracedAttributes/i\    @org.junit.Ignore' ./src/test/java/io/opentracing/contrib/grpc/TracingClientInterceptorTest.java
+fi
+
+if [[ ${project_name} == Juniper-netconf-java ]]; then
+  echo "Patching Juniper-netconf-java"
+  sed -i '/public void GIVEN_createSession_WHEN_timeoutExceeded_THEN_throwSocketTimeoutException/i\    @org.junit.Ignore' ./src/test/java/net/juniper/netconf/NetconfSessionTest.java
+fi
+
+if [[ ${project_name} == adminfaces-admin-persistence ]]; then
+  echo "Patching adminfaces-admin-persistence"
+  sed -i '/public void shouldFindCarById/i\    @org.junit.Ignore' ./src/test/java/com/github/adminfaces/persistence/CrudServiceIt.java
+  sed -i '/public void shouldListCarsByPrice/i\    @org.junit.Ignore' ./src/test/java/com/github/adminfaces/persistence/CrudServiceIt.java
+fi
+
+if [[ ${project_name} == ahus1-prometheus-hystrix ]]; then
+  echo "Patching ahus1-prometheus-hystrix"
+  sed -i '/public void shouldIncrementCounterHistogram/i\    @org.junit.Ignore' ./src/test/java/com/soundcloud/prometheus/hystrix/HystrixCommandTest.java
+  sed -i '/public void shouldWorkWithTwoCommands/i\    @org.junit.Ignore' ./src/test/java/com/soundcloud/prometheus/hystrix/HystrixCommandTest.java
+fi
+
+if [[ ${project_name} == aschoerk-converter-page ]]; then
+  echo "Patching aschoerk-converter-page"
+  rm -rf ./src/test/java/de/aschoerk/javaconv/IdTrackerTest.java
+fi
+
+if [[ ${project_name} == davidmoten-rtree ]]; then
+  echo "Patching davidmoten-rtree"
+  sed -i '/public void testOperatorShouldRequestMaxFromUpstream/i\    @org.junit.Ignore' ./src/test/java/com/github/davidmoten/internal/operators/OperatorBoundedPriorityQueueTest.java
+  sed -i '/public void testUnsubscribe/i\    @org.junit.Ignore' ./src/test/java/com/github/davidmoten/rtree/RTreeTest.java
+fi
+
+if [[ ${project_name} == delving-x3ml ]]; then
+  echo "Patching delving-x3ml"
+  find -name TestLido07.java | xargs rm -f
+  sed -i '/TestLido07\.class,/d' ./src/test/java/eu/delving/x3ml/AllTests.java
+  sed -i '/public void testAttribute/i\    @org.junit.Ignore' ./src/test/java/eu/delving/x3ml/TestRijks.java
+  sed -i '/public void testRough/i\    @org.junit.Ignore' ./src/test/java/eu/delving/x3ml/TestRijks.java
+fi
+
+if [[ ${project_name} == Azure-autorest-clientruntime-for-java ]]; then
+  echo "Patching Azure-autorest-clientruntime-for-java"
+  sed -i 's/< 2000/< 2000000/g' ./client-runtime/src/test/java/com/microsoft/rest/ConnectionPoolTests.java
+fi
+
+if [[ ${project_name} == StarlangSoftware-TurkishMorphologicalDisambiguation ]]; then
+  echo "Patching StarlangSoftware-TurkishMorphologicalDisambiguation"
+  sed -i 's/0.002/1/g' ./src/test/java/MorphologicalDisambiguation/DummyDisambiguationTest.java
+fi
+
+if [[ ${project_name} == alexheretic-dynamics ]]; then
+  echo "Patching alexheretic-dynamics"
+  sed -i '/public void epochMillisLongParsing/i\    @org.junit.Ignore' ./src/test/java/alexh/ConverterTest.java
+  sed -i '/public void stringLong/i\    @org.junit.Ignore' ./src/test/java/alexh/ConverterTest.java
+  sed -i '/public void utilDateSupport/i\    @org.junit.Ignore' ./src/test/java/alexh/ConverterTest.java
 fi

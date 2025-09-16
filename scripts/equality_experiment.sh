@@ -32,11 +32,6 @@ if [[ ! -d ${PROJECT_DIR} || ! -d ${REPO_DIR} ]]; then
     pushd ${PROJECT_DIR} &> /dev/null
     git checkout ${SHA}
     popd &> /dev/null
-    
-    if [[ -f ${SCRIPT_DIR}/../experiments/treat_special.sh ]]; then
-        # Run treat_special script
-        bash ${SCRIPT_DIR}/../experiments/treat_special.sh ${PROJECT_DIR} ${PROJECT_NAME}
-    fi
 fi
 
 if [[ -z ${REDUCTION_SCHEMES} ]]; then

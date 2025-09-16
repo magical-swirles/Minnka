@@ -100,12 +100,12 @@ function run_project() {
   echo "Running ${project_name} with SHA ${sha}"
   mkdir -p ${OUTPUT_DIR}/${project_name}
 
-  local id=$(docker run -itd --name ${project_name} minnka)
-  docker exec -w /home/minnka/minnka ${id} git pull
+  local id=$(docker run -itd --name ${project_name} minnka:latest)
+  docker exec -w /home/tsm/tsm ${id} git pull
   if [[ $? -ne 0 ]]; then
     echo "Unable to pull project ${project_name}, try again in 60 seconds" |& tee -a docker.log
     sleep 60
-    docker exec -w /home/minnka/minnka ${id} git pull
+    docker exec -w /home/tsm/tsm ${id} git pull
     if [[ $? -ne 0 ]]; then
       echo "Skip ${project_name} because script can't pull" |& tee -a docker.log
       return
@@ -113,27 +113,27 @@ function run_project() {
   fi
   
   if [[ -n ${BRANCH} && ${BRANCH} != "false" ]]; then
-    docker exec -w /home/minnka/minnka ${id} git checkout ${BRANCH}
-    docker exec -w /home/minnka/minnka ${id} git pull
+    docker exec -w /home/tsm/tsm ${id} git checkout ${BRANCH}
+    docker exec -w /home/tsm/tsm ${id} git pull
   fi
   
   if [[ -n ${TIMEOUT} ]]; then
     NEW_TIMEOUT=$((TIMEOUT*60))
     echo "Setting test timeout to ${NEW_TIMEOUT}"
-    docker exec -w /home/minnka/minnka ${id} sed -i "s/TIMEOUT=.*/TIMEOUT=${NEW_TIMEOUT}/" experiments/constants.sh
+    docker exec -w /home/tsm/tsm ${id} sed -i "s/TIMEOUT=.*/TIMEOUT=${NEW_TIMEOUT}/" experiments/constants.sh
   fi
   
   local skip=0
   if [[ -d ${OLD_OUTPUT}/${project_name} ]]; then
     echo "Found previous project directory. Copying to container..."
     if [[ -d ${OLD_OUTPUT}/${project_name}/project && -d ${OLD_OUTPUT}/${project_name}/repo ]]; then
-      docker cp ${OLD_OUTPUT}/${project_name}/project ${id}:/home/minnka/minnka/scripts/projects/${project_name}
-      docker cp ${OLD_OUTPUT}/${project_name}/repo ${id}:/home/minnka/minnka/scripts/projects/repo
-      docker exec -u 0 ${id} chown -R minnka:minnka /home/minnka/minnka/scripts/projects/${project_name}
-      docker exec -u 0 ${id} chown -R minnka:minnka /home/minnka/minnka/scripts/projects/repo
+      docker cp ${OLD_OUTPUT}/${project_name}/project ${id}:/home/tsm/tsm/scripts/projects/${project_name}
+      docker cp ${OLD_OUTPUT}/${project_name}/repo ${id}:/home/tsm/tsm/scripts/projects/repo
+      docker exec -u 0 ${id} chown -R tsm:tsm /home/tsm/tsm/scripts/projects/${project_name}
+      docker exec -u 0 ${id} chown -R tsm:tsm /home/tsm/tsm/scripts/projects/repo
     else
-      docker cp ${OLD_OUTPUT}/${project_name} ${id}:/home/minnka/minnka/scripts/projects/${project_name}
-      docker exec -u 0 ${id} chown -R minnka:minnka /home/minnka/minnka/scripts/projects/${project_name}
+      docker cp ${OLD_OUTPUT}/${project_name} ${id}:/home/tsm/tsm/scripts/projects/${project_name}
+      docker exec -u 0 ${id} chown -R tsm:tsm /home/tsm/tsm/scripts/projects/${project_name}
     fi
   
     if [[ ${VIOLATION_ONLY} == "true" ]]; then
@@ -147,11 +147,11 @@ function run_project() {
     fi
   fi
 
-  echo "Running command: timeout ${NEW_TIMEOUT} bash scripts/equality_experiment.sh -p ${repo} -s ${sha} -a ${seq_par} -t ${TIEBREAKER} -r ${ALGORITHM} /home/minnka/minnka/scripts/projects/${project_name} /home/minnka/minnka/scripts/projects/repo ${schemes} ${RV_CONFIGS}"
-  timeout ${NEW_TIMEOUT} docker exec -w /home/minnka/minnka -e M2_HOME=/home/minnka/apache-maven -e MAVEN_HOME=/home/minnka/apache-maven -e CLASSPATH=/home/minnka/aspectj-1.9.7/lib/aspectjtools.jar:/home/minnka/aspectj-1.9.7/lib/aspectjrt.jar:/home/minnka/aspectj-1.9.7/lib/aspectjweaver.jar: -e PATH=/home/minnka/apache-maven/bin:/usr/lib/jvm/java-8-openjdk/bin:/home/minnka/aspectj-1.9.7/bin:/home/minnka/aspectj-1.9.7/lib/aspectjweaver.jar:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin ${id} timeout ${NEW_TIMEOUT} bash scripts/equality_experiment.sh -p ${repo} -s ${sha} -a ${seq_par} -t ${TIEBREAKER} -r ${ALGORITHM} /home/minnka/minnka/scripts/projects/${project_name} /home/minnka/minnka/scripts/projects/repo "${schemes}" "${RV_CONFIGS}" &> ${OUTPUT_DIR}/${project_name}/docker.log
+  echo "Running command: timeout ${NEW_TIMEOUT} bash scripts/equality_experiment.sh -p ${repo} -s ${sha} -a ${seq_par} -t ${TIEBREAKER} -r ${ALGORITHM} /home/tsm/tsm/scripts/projects/${project_name} /home/tsm/tsm/scripts/projects/repo ${schemes} ${RV_CONFIGS}"
+  timeout ${NEW_TIMEOUT} docker exec -w /home/tsm/tsm -e M2_HOME=/home/tsm/apache-maven -e MAVEN_HOME=/home/tsm/apache-maven -e CLASSPATH=/home/tsm/aspectj-1.9.7/lib/aspectjtools.jar:/home/tsm/aspectj-1.9.7/lib/aspectjrt.jar:/home/tsm/aspectj-1.9.7/lib/aspectjweaver.jar: -e PATH=/home/tsm/apache-maven/bin:/usr/lib/jvm/java-8-openjdk/bin:/home/tsm/aspectj-1.9.7/bin:/home/tsm/aspectj-1.9.7/lib/aspectjweaver.jar:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin ${id} timeout ${NEW_TIMEOUT} bash scripts/equality_experiment.sh -p ${repo} -s ${sha} -a ${seq_par} -t ${TIEBREAKER} -r ${ALGORITHM} /home/tsm/tsm/scripts/projects/${project_name} /home/tsm/tsm/scripts/projects/repo "${schemes}" "${RV_CONFIGS}" &> ${OUTPUT_DIR}/${project_name}/docker.log
 
-  docker cp ${id}:/home/minnka/minnka/scripts/projects/${project_name} ${OUTPUT_DIR}/${project_name}/project
-  docker cp ${id}:/home/minnka/minnka/scripts/projects/repo ${OUTPUT_DIR}/${project_name}/repo
+  docker cp ${id}:/home/tsm/tsm/scripts/projects/${project_name} ${OUTPUT_DIR}/${project_name}/project
+  docker cp ${id}:/home/tsm/tsm/scripts/projects/repo ${OUTPUT_DIR}/${project_name}/repo
 
   docker rm -f ${id}
   

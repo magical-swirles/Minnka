@@ -18,6 +18,10 @@ public class OnlineDetourEquivalence extends Equivalence {
 
             for (String trace : entry.getValue()) {
                 // Expand the events, e.g., it turns e1~2x3 into [e1~2, e1~2, e1~2]
+                if (trace.startsWith("r")) { // raw trace
+                    newTraces.add(trace);
+                    continue;
+                }
                 List<String> originalEvents = new ArrayList<>();
                 List<String> expandedEvents = new ArrayList<>();
                 Utils.expandTraces(trace, originalEvents, expandedEvents);

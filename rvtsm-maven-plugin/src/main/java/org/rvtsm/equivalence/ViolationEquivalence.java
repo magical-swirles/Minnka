@@ -16,6 +16,10 @@ public class ViolationEquivalence extends Equivalence {
             Set<String> newTraces = new HashSet<>();
 
             for (String trace : entry.getValue()) {
+                if (trace.startsWith("r")) { // raw trace
+                    continue;
+                }
+
                 // Expand the events, e.g., it turns e1~2x3 into [e1~2, e1~2, e1~2]
                 List<String> originalEvents = new ArrayList<>();
                 List<String> expandedEvents = new ArrayList<>();

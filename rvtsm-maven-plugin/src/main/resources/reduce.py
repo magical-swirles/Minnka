@@ -1,7 +1,5 @@
 #! /usr/bin/python3
 
-#Acknowledgements to August Shi (august@utexas.edu)
-
 import sys
 import csv
 from collections import defaultdict

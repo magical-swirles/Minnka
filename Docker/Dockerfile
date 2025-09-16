@@ -25,22 +25,22 @@ RUN \
   apt-get install -y openjdk-8-jdk && \
   mv /usr/lib/jvm/java-8-openjdk* /usr/lib/jvm/java-8-openjdk
 
-# Set up user (minnka)
-RUN useradd -ms /bin/bash -c "minnka" minnka && echo "minnka:docker" | chpasswd && adduser minnka sudo
+# Set up user (tsm)
+RUN useradd -ms /bin/bash -c "tsm" tsm && echo "tsm:docker" | chpasswd && adduser tsm sudo
 
-USER minnka
+USER tsm
 
-WORKDIR /home/minnka/
+WORKDIR /home/tsm/
 
 # Use OpenJDK 8 when building the docker image
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 # Install Maven 3.5.4 locally for user
 RUN \
-  wget http://mirrors.ibiblio.org/apache/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz && \
-  tar -xzf apache-maven-3.8.8-bin.tar.gz && mv apache-maven-3.8.8/ apache-maven/ && \
-  rm apache-maven-3.8.8-bin.tar.gz && \
-  cd /home/minnka && \
+  wget http://mirrors.ibiblio.org/apache/maven/maven-3/3.8.9/binaries/apache-maven-3.8.9-bin.tar.gz && \
+  tar -xzf apache-maven-3.8.9-bin.tar.gz && mv apache-maven-3.8.9/ apache-maven/ && \
+  rm apache-maven-3.8.9-bin.tar.gz && \
+  cd /home/tsm && \
 # Set up the user's configurations
   tail -n +10 ~/.bashrc > ~/tmp-bashrc && \
   mv ~/tmp-bashrc ~/.bashrc && \
@@ -57,7 +57,7 @@ RUN \
 
 # Install profiler
 RUN \
-  cd /home/minnka && \
+  cd /home/tsm && \
   wget https://github.com/async-profiler/async-profiler/releases/download/v2.9/async-profiler-2.9-linux-x64.tar.gz && \
   tar xf async-profiler-2.9-linux-x64.tar.gz && \
   rm async-profiler-2.9-linux-x64.tar.gz
@@ -70,4 +70,4 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
-COPY --chown=minnka:minnka Docker/setup.sh /home/minnka/setup.sh
+COPY --chown=tsm:tsm Docker/setup.sh /home/tsm/setup.sh
